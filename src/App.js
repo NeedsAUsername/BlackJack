@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import {connect} from 'react-redux';
 import './App.css';  
-import Home from './home';
 import Game from './game';
 
 class App extends Component {
@@ -14,8 +13,7 @@ class App extends Component {
     return (
       <Router>
         <div className="app"> 
-        <Route exact path='/' component={Home} />
-        <Route exact path='/game' component={Game} />
+        <Route exact path='/' component={Game} />
         </div>
       </Router>
     );

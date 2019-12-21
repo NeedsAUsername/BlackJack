@@ -1,8 +1,0 @@
-.message {
-  list-style: none;
-}
-
-.message-box { 
-  min-width: 200px;
-  overflow-y: auto;
-}

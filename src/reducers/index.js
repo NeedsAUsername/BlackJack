@@ -1,12 +1,12 @@
 import {combineReducers} from 'redux'; 
-import heroReducer from './hero_reducer';  
-import enemyReducer from './enemy_reducer'; 
-import messagesReducer from './messages_reducer';
+import dealerReducer from './dealer_reducer';
+import playerReducer from './player_reducer'
+import deck_reducer from './deck_reducer';
 
 const rootReducer = combineReducers({
-  hero: heroReducer, 
-  enemy: enemyReducer, 
-  messages: messagesReducer
+  dealer: dealerReducer,
+  player: playerReducer,
+  deck: deck_reducer,
 });
 
 export default rootReducer;
