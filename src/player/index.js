@@ -10,9 +10,9 @@ class Player extends React.Component {
   render () {
     return (
       <div>
-        <h1>Player</h1>
+        <h1>Player {this.props.player.handTotal}</h1>
         <div>{this.renderHand()}</div>
-
+        <div>{this.props.handTotal}</div>
       </div>
     )
   }

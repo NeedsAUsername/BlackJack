@@ -1,15 +1,19 @@
+import { cardMap } from '../helpers/cardMap';
+
 function dealerReducer(state = {
   hand: [], 
-  value: 0
+  handTotal: 0
 }, action) {
 
   switch(action.type) { 
-    case 'deal':
+    case 'DEALER_DRAW':
       const newCard = action.payload[0]
       const newHand = [...state.hand, newCard]
+      const newValue = state.handTotal + cardMap[newCard.value]
       return {
         ...state,
-        newHand
+        hand: newHand,
+        handTotal: newValue
       }
 
     default: 
