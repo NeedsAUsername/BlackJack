@@ -6,15 +6,13 @@ function dealerReducer(state = {
 }, action) {
 
   switch(action.type) { 
-    case 'DEALER_DRAW':
-      const newCard = action.payload[0]
-      const newHand = [...state.hand, newCard]
-      const newValue = state.handTotal + cardMap[newCard.value]
+    case 'DRAW_CARD':
       return {
         ...state,
-        hand: newHand,
-        handTotal: newValue
+        hand: [...state.hand, action.drawnCard],
+        handTotal: action.newHandTotal
       }
+    
 
     default: 
       return state

@@ -11,15 +11,24 @@ class Game extends React.Component {
   }
 
   drawCard = () => {
-    this.props.drawCard(this.props.deckId)
+    this.props.drawCard(this.props.deckId, this.props.player.handTotal)
+  }
+
+  renderActions = () => {
+    const player = this.props.player;
+    if (player.status === 'BUST') {
+      return null;
+    } else {
+      return <button onClick={this.drawCard}>Draw Card</button>
+    }
   }
 
   render () { 
     return (
       <div>
         <h1>Blackjack</h1>
+        {this.renderActions()}
         <Player player={this.props.player}/>
-        <button onClick={this.drawCard}>Draw Card</button>
       </div>
     )
   }
