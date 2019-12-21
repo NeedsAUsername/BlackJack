@@ -1,17 +1,17 @@
-export function getDeck() {
+export function shuffleDeck(deckId) {
   return (dispatch) => {
-    dispatch({type: 'LOADING_DECK'})
-    const url = `https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=6`;
+    dispatch({type: 'SHUFFLING_DECK'})
+    const url = `https://cors-anywhere.herokuapp.com/https://deckofcardsapi.com/api/deck/${deckId}/shuffle/`;
     return fetch(url)
     .then(response => response.json())
     .then(data => {
       if (data.success) {
         dispatch({
-          type: 'GET_DECK',
+          type: 'SHUFFLE_DECK',
           payload: data.deck_id
         })
       } else {
-        throw new Error('Could not get deck')
+        throw new Error('Could not shuffle deck')
       }
     })
     .catch(error => console.log(error))

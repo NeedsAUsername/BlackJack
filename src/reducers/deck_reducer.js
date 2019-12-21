@@ -8,6 +8,10 @@ function deckReducer(state = {
       return {
         id: action.payload
       }
+    case 'SHUFFLE_DECK':
+      return {
+        id: action.payload
+      }
 
     default: 
       return state

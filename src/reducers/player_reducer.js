@@ -1,9 +1,7 @@
-import { cardMap } from '../helpers/cardMap';
-
 function playerReducer(state = {
   hand: [],
   handTotal: 0,
-  status: '',
+  status: 'betting', // betting/playing/bust
   bet: 0
 }, action) {
 
@@ -20,7 +18,23 @@ function playerReducer(state = {
         ...state,
         hand: [...state.hand, action.drawnCard],
         handTotal: action.newHandTotal,
-        status: 'BUST!'
+        status: 'bust'
+      }
+    
+    case 'DEAL_CARDS':
+      return {
+        ...state,
+        hand: action.cards,
+        handTotal: action.handTotal,
+        status: 'playing'
+      }
+
+    case 'RESET_HANDS':
+      return {
+        ...state,
+        hand: [],
+        handTotal: 0,
+        status: 'betting',
       }
 
     default: 

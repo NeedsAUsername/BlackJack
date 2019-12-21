@@ -11,7 +11,7 @@ class Player extends React.Component {
     const player = this.props.player
     return (
       <div>
-        <h1>Player {player.handTotal} {player.status}</h1>
+        <h1>Player {player.handTotal} {player.status === 'bust' ? 'BUST!' : null}</h1>
         <div>{this.renderHand()}</div>
         <div>{this.props.handTotal}</div>
       </div>
