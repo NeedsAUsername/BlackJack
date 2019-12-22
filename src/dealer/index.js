@@ -11,7 +11,7 @@ class Dealer extends React.Component {
     const dealer = this.props.dealer
     return (
       <div>
-        <h1>Dealer {dealer.handTotal} {dealer.status === 'bust' ? 'BUST!' : null}</h1>
+        <h1>Dealer {dealer.handTotal > 0 ? dealer.handTotal : null} {dealer.status === 'bust' ? 'BUST!' : null}</h1>
         <div>{this.renderHand()}</div>
       </div>
     )
