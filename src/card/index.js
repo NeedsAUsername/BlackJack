@@ -6,7 +6,7 @@ class Card extends React.Component {
   render () {
     const card = this.props.card
     return (
-      <img src={card.image} alt={card.value}></img>
+      <img className='card' src={card.image} alt={card.value}></img>
     )
   }
 }

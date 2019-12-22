@@ -8,7 +8,7 @@ export function dealCards(deckId) {
     .then(response => response.json())
     .then(data => {
       const playerCards = data.cards.slice(0,2);
-      const dealerCards = data.cards.slice(2,4);
+      const dealerCards = data.cards.slice(2,3);
       const playerHandTotal = playerCards.reduce((total, card) => total += cardMap[card.value], 0)
       const dealerHandTotal = dealerCards.reduce((total, card) => total += cardMap[card.value], 0)
       dispatch({
