@@ -63,6 +63,9 @@ class Game extends React.Component {
 
   calculateWinner = () => {
     if (this.props.dealer.handTotal > 17 && this.props.player.status === 'standing') {
+      if (this.props.dealer.value === this.props.value) {
+        return <h1>Push</h1>
+      }
       if (this.props.dealer.value > this.props.player.value) {
         return <h1>Dealer Wins</h1>
       } else {
