@@ -61,7 +61,7 @@ class Game extends React.Component {
           <button onClick={this.stand}>Stand</button>
         </div>
     }
-    if (player.status === 'bust') {
+    if (player.status === 'bust' || player.stauts === 'waiting' || this.props.dealer.status === 'bust') {
       return <button onClick={this.reset}>Reset</button>;
     }
   }
@@ -83,8 +83,8 @@ class Game extends React.Component {
       <div>
         <h1>Blackjack</h1>
         {this.calculateWinner()}
-        <Dealer dealer={this.props.dealer}/>
         {this.renderActions()}
+        <Dealer dealer={this.props.dealer}/>
         <Player player={this.props.player}/>
       </div>
     )

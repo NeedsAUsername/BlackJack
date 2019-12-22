@@ -9,7 +9,12 @@ export function drawCard(deckId, handTotal, person) {
     .then(data => {
       const drawnCard = data.cards[0];
       const cardValue = cardMap[drawnCard.value];
-      const newHandTotal = handTotal + cardValue;
+      let newHandTotal = handTotal + cardValue;
+      if (drawnCard.value === 'ACE') {
+        if (newHandTotal > 21) {
+          newHandTotal -= 10;
+        }
+      }
       if (newHandTotal > 21) {
         dispatch({
           type: person === 'player' ? 'DRAW_CARD_BUST' : 'DEALER_DRAW_CARD_BUST',

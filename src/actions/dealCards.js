@@ -9,8 +9,11 @@ export function dealCards(deckId) {
     .then(data => {
       const playerCards = data.cards.slice(0,2);
       const dealerCards = data.cards.slice(2,3);
-      const playerHandTotal = playerCards.reduce((total, card) => total += cardMap[card.value], 0)
+      let playerHandTotal = playerCards.reduce((total, card) => total += cardMap[card.value], 0)
       const dealerHandTotal = dealerCards.reduce((total, card) => total += cardMap[card.value], 0)
+      if (playerHandTotal === 22) { // case of two Aces
+        playerHandTotal = 12;
+      }
       dispatch({
         type: 'DEAL_CARDS',
         playerCards,

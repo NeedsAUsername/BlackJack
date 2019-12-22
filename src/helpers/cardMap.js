@@ -1,5 +1,5 @@
 export const cardMap = {
-  'ACE': 1,
+  'ACE': 11,
   '2': 2,
   '3': 3,
   '4': 4,

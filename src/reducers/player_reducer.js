@@ -52,7 +52,7 @@ function playerReducer(state = {
     case 'END_ROUND':
       return {
         ...state,
-        status: 'betting'
+        status: 'waiting'
       }
 
     default: 
