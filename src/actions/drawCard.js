@@ -12,7 +12,7 @@ export function drawCard(deckId, hand, person) {
       let numberOfAcesValue11 = 0;
       let newHandTotal = 0;
       hand.forEach(card => {
-        newHandTotal += card.value
+        newHandTotal += cardMap[card.value]
       })
       while (numberOfAcesValue11 > 0 && newHandTotal > 21) {
         newHandTotal -= 10;
