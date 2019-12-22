@@ -19,7 +19,7 @@ class Game extends React.Component {
   componentDidUpdate() {
     if (this.props.dealer.status === 'hitting') {
       if (this.props.dealer.handTotal < 17) {
-        setTimeout(() => this.props.drawCard(this.props.deckId, this.props.dealer.handTotal, 'dealer'), 1000)
+        setTimeout(() => this.props.drawCard(this.props.deckId, this.props.dealer.hand, 'dealer'), 1000)
       } else {
         this.props.endRound();
       }
@@ -30,7 +30,7 @@ class Game extends React.Component {
     this.props.dealCards(this.props.deckId)
   }
   hit = () => {
-    this.props.drawCard(this.props.deckId, this.props.player.handTotal, 'player')
+    this.props.drawCard(this.props.deckId, this.props.player.hand, 'player')
   }
   stand = () => {
     this.props.stand()
