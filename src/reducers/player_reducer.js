@@ -48,6 +48,12 @@ function playerReducer(state = {
         ...state,
         status: 'betting'
       }
+    
+    case 'END_ROUND':
+      return {
+        ...state,
+        status: 'betting'
+      }
 
     default: 
       return state

@@ -40,6 +40,12 @@ function dealerReducer(state = {
         handTotal: action.newHandTotal,
         status: 'bust'
       }
+    
+    case 'END_ROUND':
+      return {
+        ...state,
+        status: 'waiting'
+      }
 
     default: 
       return state
