@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';  
 import './style.css';
 import Player from '../player';
+import Dealer from '../dealer';
 import {getDeck} from '../actions/getDeck';
 import {dealCards} from '../actions/dealCards';
 import {drawCard} from '../actions/drawCard';
@@ -45,6 +46,7 @@ class Game extends React.Component {
     return (
       <div>
         <h1>Blackjack</h1>
+        <Dealer dealer={this.props.dealer}/>
         {this.renderActions()}
         <Player player={this.props.player}/>
       </div>

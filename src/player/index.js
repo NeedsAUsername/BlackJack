@@ -13,7 +13,6 @@ class Player extends React.Component {
       <div>
         <h1>Player {player.handTotal} {player.status === 'bust' ? 'BUST!' : null}</h1>
         <div>{this.renderHand()}</div>
-        <div>{this.props.handTotal}</div>
       </div>
     )
   }

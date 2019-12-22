@@ -1,22 +1,15 @@
 function dealerReducer(state = {
   hand: [], 
-  handTotal: 0
+  handTotal: 0,
+  status: ''
 }, action) {
 
   switch(action.type) { 
-    case 'DRAW_CARD':
+    case 'DEAL_CARDS':
       return {
         ...state,
-        hand: [...state.hand, action.drawnCard],
-        handTotal: action.newHandTotal
-      }
-    
-    case 'DRAW_CARD_BUST':
-      return {
-        ...state,
-        hand: [...state.hand, action.drawnCard],
-        handTotal: action.newHandTotal,
-        status: 'BUST!'
+        hand: action.dealerCards,
+        handTotal: action.dealerHandTotal,
       }
 
     case 'RESET_HANDS':

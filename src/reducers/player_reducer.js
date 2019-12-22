@@ -24,8 +24,8 @@ function playerReducer(state = {
     case 'DEAL_CARDS':
       return {
         ...state,
-        hand: action.cards,
-        handTotal: action.handTotal,
+        hand: action.playerCards,
+        handTotal: action.playerHandTotal,
         status: 'playing'
       }
 
