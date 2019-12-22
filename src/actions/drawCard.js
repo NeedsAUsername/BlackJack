@@ -11,6 +11,9 @@ export function drawCard(deckId, hand, person) {
       let numberOfAcesValue11 = drawnCard.value === 'ACE' ? 1 : 0;
       let newHandTotal = cardMap[drawnCard.value];
       hand.forEach(card => {
+        if (card.value === 'ACE') {
+          numberOfAcesValue11 += 1;
+        }
         newHandTotal += cardMap[card.value]
       })
       while (numberOfAcesValue11 > 0 && newHandTotal > 21) {
