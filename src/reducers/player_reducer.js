@@ -46,7 +46,7 @@ function playerReducer(state = {
     case 'DEALER_DRAW_CARD_BUST':
       return {
         ...state,
-        status: 'betting'
+        status: 'waiting'
       }
     
     case 'END_ROUND':
