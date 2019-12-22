@@ -1,6 +1,6 @@
 {
-  "name": "maplestory-idle",
-  "version": "3.0.0",
+  "name": "blackjack",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "react": "^16.11.0",
