@@ -34,7 +34,19 @@ function playerReducer(state = {
         ...state,
         hand: [],
         handTotal: 0,
-        status: 'betting',
+        status: 'betting'
+      }
+
+    case 'STAND': 
+      return {
+        ...state, 
+        status: 'standing'
+      }
+    
+    case 'DEALER_DRAW_CARD_BUST':
+      return {
+        ...state,
+        status: 'betting'
       }
 
     default: 

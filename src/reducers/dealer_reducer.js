@@ -1,7 +1,7 @@
 function dealerReducer(state = {
   hand: [], 
   handTotal: 0,
-  status: ''
+  status: 'waiting'
 }, action) {
 
   switch(action.type) { 
@@ -17,7 +17,28 @@ function dealerReducer(state = {
         ...state,
         hand: [],
         handTotal: 0,
-        status: 'betting',
+        status: 'waiting',
+      }
+    
+    case 'STAND':
+      return {
+        ...state,
+        status: 'hitting'
+      }
+
+    case 'DEALER_DRAW_CARD':
+      return {
+        ...state,
+        hand: [...state.hand, action.drawnCard],
+        handTotal: action.newHandTotal
+      }
+    
+    case 'DEALER_DRAW_CARD_BUST':
+      return {
+        ...state,
+        hand: [...state.hand, action.drawnCard],
+        handTotal: action.newHandTotal,
+        status: 'bust'
       }
 
     default: 

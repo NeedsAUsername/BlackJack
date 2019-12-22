@@ -8,25 +8,41 @@ import {dealCards} from '../actions/dealCards';
 import {drawCard} from '../actions/drawCard';
 import {shuffleDeck} from '../actions/shuffleDeck';
 import {resetHands} from '../actions/resetHands';
+import {stand} from '../actions/stand';
 
 class Game extends React.Component { 
   componentDidMount() {
     this.props.getDeck();
   }
 
-  hit = () => {
-    this.props.drawCard(this.props.deckId, this.props.player.handTotal)
+  componentDidUpdate() {
+    if (this.props.dealer.status === 'hitting') {
+      setTimeout(() => this.props.drawCard(this.props.deckId, this.props.dealer.handTotal, 'dealer'), 1000)
+    }
   }
-  shuffleDeck = () => {
-    this.props.shuffleDeck(this.props.deckId)
-  }
+
   dealCards = () => {
     this.props.dealCards(this.props.deckId)
   }
-
+  hit = () => {
+    this.props.drawCard(this.props.deckId, this.props.player.handTotal, 'player')
+  }
+  stand = () => {
+    this.props.stand()
+  }
   reset = () => {
-    this.shuffleDeck();
+    this.props.shuffleDeck(this.props.deckId)
     this.props.resetHands();
+  }
+  
+  dealerTurns = () => {
+    this.dealerInterval = setInterval(this.dealerHit, 1000)
+  }
+  dealerHit = () => {
+    this.props.drawCard(this.props.deckId, this.props.dealer.handTotal, 'dealer')
+    if (this.props.dealer.status === 'bust') {
+      clearInterval(this.dealerInterval)
+    }
   }
 
   renderActions = () => {
@@ -35,7 +51,10 @@ class Game extends React.Component {
       return <button onClick={this.dealCards}>Deal Cards</button>
     }
     if(player.status === 'playing') {
-      return <button onClick={this.hit}>Hit</button>
+      return <div>
+          <button onClick={this.hit}>Hit</button>
+          <button onClick={this.stand}>Stand</button>
+        </div>
     }
     if (player.status === 'bust') {
       return <button onClick={this.reset}>Reset</button>;
@@ -62,4 +81,4 @@ const mapStateToProps = (store) => {
   }
 }
 
-export default connect(mapStateToProps, {getDeck, dealCards, drawCard, shuffleDeck, resetHands})(Game);
+export default connect(mapStateToProps, {getDeck, dealCards, drawCard, shuffleDeck, resetHands, stand})(Game);

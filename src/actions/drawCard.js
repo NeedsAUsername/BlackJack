@@ -1,6 +1,6 @@
 import { cardMap } from '../helpers/cardMap';
 
-export function drawCard(deckId, handTotal) {
+export function drawCard(deckId, handTotal, person) {
   return (dispatch) => {
     dispatch({type: 'DRAWING_CARD'})
     const url = `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`;
@@ -12,13 +12,13 @@ export function drawCard(deckId, handTotal) {
       const newHandTotal = handTotal + cardValue;
       if (newHandTotal > 21) {
         dispatch({
-          type: 'DRAW_CARD_BUST',
+          type: person === 'player' ? 'DRAW_CARD_BUST' : 'DEALER_DRAW_CARD_BUST',
           drawnCard,
           newHandTotal
         })
       } else {
-        dispatch({ 
-          type: 'DRAW_CARD',
+        dispatch({
+          type: person === 'player' ? 'DRAW_CARD' : 'DEALER_DRAW_CARD',
           drawnCard,
           newHandTotal
         })
