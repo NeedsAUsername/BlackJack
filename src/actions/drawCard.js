@@ -8,9 +8,8 @@ export function drawCard(deckId, hand, person) {
     .then(response => response.json())
     .then(data => {
       const drawnCard = data.cards[0];
-      hand.push(drawnCard);
-      let numberOfAcesValue11 = 0;
-      let newHandTotal = 0;
+      let numberOfAcesValue11 = drawnCard.value === 'ACE' ? 1 : 0;
+      let newHandTotal = cardMap[drawnCard.value];
       hand.forEach(card => {
         newHandTotal += cardMap[card.value]
       })
