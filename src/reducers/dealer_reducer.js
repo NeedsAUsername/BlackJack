@@ -30,7 +30,7 @@ function dealerReducer(state = {
       return {
         ...state,
         hand: [...state.hand, action.drawnCard],
-        handTotal: action.newHandTotal
+        handTotal: action.newHandTotal,
       }
     
     case 'DEALER_DRAW_CARD_BUST':

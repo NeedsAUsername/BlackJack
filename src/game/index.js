@@ -16,7 +16,7 @@ class Game extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.props.dealer.status === 'hitting') {
+    if (this.props.dealer.status === 'hitting' && (this.props.dealer.handTotal < 17)) {
       setTimeout(() => this.props.drawCard(this.props.deckId, this.props.dealer.handTotal, 'dealer'), 1000)
     }
   }
@@ -61,10 +61,20 @@ class Game extends React.Component {
     }
   }
 
+  calculateWinner = () => {
+    if (this.props.dealer.handTotal > 17 && this.props.player.status === 'standing') {
+      if (this.props.dealer.value > this.props.player.value) {
+        return <h1>Dealer Wins</h1>
+      } else {
+        return <h1>Player Wins</h1>
+      }
+    }
+  }
   render () { 
     return (
       <div>
         <h1>Blackjack</h1>
+        {this.calculateWinner()}
         <Dealer dealer={this.props.dealer}/>
         {this.renderActions()}
         <Player player={this.props.player}/>
