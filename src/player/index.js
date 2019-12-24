@@ -13,7 +13,7 @@ class Player extends React.Component {
   }
   renderBetForm = () => (
       <form>
-        <label for='bet'>Bet:</label>
+        <label htmlFor='bet'>Bet:</label>
         <input type='text' name='bet' onChange={this.changeBet} value={this.props.player.bet} /> 
       </form>
   )

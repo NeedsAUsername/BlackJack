@@ -11,6 +11,7 @@ import {resetHands} from '../actions/resetHands';
 import {stand} from '../actions/stand';
 import {calculateWinner} from '../actions/calculateWinner';
 import {changeBet} from '../actions/changeBet';
+import {double} from '../actions/double';
 
 class Game extends React.Component { 
   componentDidMount() {
@@ -36,6 +37,9 @@ class Game extends React.Component {
   stand = () => {
     this.props.stand()
   }
+  double = () => {
+    this.props.double(this.props.deckId, this.props.player.hand)
+  }
   reset = () => {
     this.props.shuffleDeck(this.props.deckId)
     this.props.resetHands();
@@ -57,10 +61,20 @@ class Game extends React.Component {
       return <button onClick={this.dealCards}>Deal Cards</button>
     }
     if(player.status === 'playing') {
-      return <div>
+      if (player.hand.length > 2) {
+        return (
+        <div>
+          {player.handTotal < 21 && player.doubled === false ? <button onClick={this.hit}>Hit</button> : null}
+          <button onClick={this.stand}>Stand</button>
+        </div>)
+      } else {
+        return (
+        <div>
+          {player.handTotal < 21 ? <button onClick={this.double}>Double</button> : null}
           {player.handTotal < 21 ? <button onClick={this.hit}>Hit</button> : null}
           <button onClick={this.stand}>Stand</button>
-        </div>
+        </div>)
+      }
     }
     if (player.status === 'bust' || player.status === 'waiting' || this.props.dealer.status === 'bust') {
       return <button onClick={this.reset}>Reset</button>;
@@ -104,5 +118,5 @@ const mapStateToProps = (store) => {
 }
 
 export default connect(mapStateToProps, {
-  getDeck, dealCards, drawCard, shuffleDeck, resetHands, stand, calculateWinner, changeBet
+  getDeck, dealCards, drawCard, shuffleDeck, resetHands, stand, calculateWinner, changeBet, double
 })(Game);

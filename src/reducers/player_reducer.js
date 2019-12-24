@@ -3,7 +3,8 @@ function playerReducer(state = {
   handTotal: 0,
   status: 'betting', // betting/playing/bust
   bet: 1,
-  cash: 100
+  cash: 2,
+  doubled: false
 }, action) {
 
   switch(action.type) { 
@@ -14,6 +15,15 @@ function playerReducer(state = {
         handTotal: action.newHandTotal
       }
     
+    case 'DOUBLE_DRAW_CARD':
+      return {
+        ...state,
+        hand: [...state.hand, action.drawnCard],
+        handTotal: action.newHandTotal,
+        bet: state.bet * 2,
+        doubled: true,
+      }
+    
     case 'DRAW_CARD_BUST':
       return {
         ...state,
@@ -21,6 +31,15 @@ function playerReducer(state = {
         handTotal: action.newHandTotal,
         status: 'bust',
         cash: state.cash - state.bet
+      }
+    
+    case 'DOUBLE_DRAW_CARD_BUST':
+      return {
+        ...state,
+        hand: [...state.hand, action.drawnCard],
+        handTotal: action.newHandTotal,
+        status: 'bust',
+        cash: state.cash - (state.bet * 2)
       }
     
     case 'DEAL_CARDS':
@@ -49,7 +68,9 @@ function playerReducer(state = {
       return {
         ...state,
         status: 'waiting',
-        cash: state.cash + state.bet
+        cash: state.cash + state.bet,
+        bet: state.doubled === true ? state.bet/2 : state.bet,
+        doubled: false
       }
 
     case 'CALCULATE_WINNER':
@@ -62,13 +83,16 @@ function playerReducer(state = {
       return {
         ...state,
         cash: newCash,
-        status: 'waiting'
+        status: 'waiting',
+        bet: state.doubled === true ? state.bet/2 : state.bet,
+        doubled: false
       }
     
     case 'CHANGE_BET':
+      const newBet = Number(action.newBet)
       return {
         ...state,
-        bet: action.newBet
+        bet: Number.isNaN(newBet) ? 1 : newBet
       }
 
     default: 
