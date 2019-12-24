@@ -10,6 +10,7 @@ import {shuffleDeck} from '../actions/shuffleDeck';
 import {resetHands} from '../actions/resetHands';
 import {stand} from '../actions/stand';
 import {calculateWinner} from '../actions/calculateWinner';
+import {changeBet} from '../actions/changeBet';
 
 class Game extends React.Component { 
   componentDidMount() {
@@ -88,7 +89,7 @@ class Game extends React.Component {
         {this.renderWinner()}
         {this.renderActions()}
         <Dealer dealer={this.props.dealer}/>
-        <Player player={this.props.player}/>
+        <Player player={this.props.player} changeBet={this.props.changeBet}/>
       </div>
     )
   }
@@ -102,4 +103,6 @@ const mapStateToProps = (store) => {
   }
 }
 
-export default connect(mapStateToProps, {getDeck, dealCards, drawCard, shuffleDeck, resetHands, stand, calculateWinner})(Game);
+export default connect(mapStateToProps, {
+  getDeck, dealCards, drawCard, shuffleDeck, resetHands, stand, calculateWinner, changeBet
+})(Game);

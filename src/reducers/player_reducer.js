@@ -65,10 +65,10 @@ function playerReducer(state = {
         status: 'waiting'
       }
     
-    case 'END_ROUND':
+    case 'CHANGE_BET':
       return {
         ...state,
-        status: 'waiting'
+        bet: action.newBet
       }
 
     default: 
