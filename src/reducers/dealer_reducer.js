@@ -41,7 +41,7 @@ function dealerReducer(state = {
         status: 'bust'
       }
     
-    case 'END_ROUND':
+    case 'CALCULATE_WINNER':
       return {
         ...state,
         status: 'waiting'

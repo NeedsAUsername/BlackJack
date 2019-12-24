@@ -9,7 +9,7 @@ import {drawCard} from '../actions/drawCard';
 import {shuffleDeck} from '../actions/shuffleDeck';
 import {resetHands} from '../actions/resetHands';
 import {stand} from '../actions/stand';
-import {endRound} from '../actions/endRound';
+import {calculateWinner} from '../actions/calculateWinner';
 
 class Game extends React.Component { 
   componentDidMount() {
@@ -21,7 +21,7 @@ class Game extends React.Component {
       if (this.props.dealer.handTotal < 17) {
         setTimeout(() => this.props.drawCard(this.props.deckId, this.props.dealer.hand, 'dealer'), 1000)
       } else {
-        this.props.endRound();
+        this.props.calculateWinner(this.props.player.handTotal, this.props.dealer.handTotal);
       }
     } 
   }
@@ -64,9 +64,12 @@ class Game extends React.Component {
     if (player.status === 'bust' || player.status === 'waiting' || this.props.dealer.status === 'bust') {
       return <button onClick={this.reset}>Reset</button>;
     }
+    else {
+      return <div>Good Luck...</div>
+    }
   }
 
-  calculateWinner = () => {
+  renderWinner = () => {
     if (this.props.dealer.handTotal >= 17 && this.props.dealer.status === 'waiting') {
       if (this.props.dealer.handTotal === this.props.player.handTotal) {
         return <h1>Push</h1>
@@ -82,7 +85,7 @@ class Game extends React.Component {
     return (
       <div>
         <h1>Blackjack</h1>
-        {this.calculateWinner()}
+        {this.renderWinner()}
         {this.renderActions()}
         <Dealer dealer={this.props.dealer}/>
         <Player player={this.props.player}/>
@@ -99,4 +102,4 @@ const mapStateToProps = (store) => {
   }
 }
 
-export default connect(mapStateToProps, {getDeck, dealCards, drawCard, shuffleDeck, resetHands, stand, endRound})(Game);
+export default connect(mapStateToProps, {getDeck, dealCards, drawCard, shuffleDeck, resetHands, stand, calculateWinner})(Game);

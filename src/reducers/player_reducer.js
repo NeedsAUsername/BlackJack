@@ -2,7 +2,8 @@ function playerReducer(state = {
   hand: [],
   handTotal: 0,
   status: 'betting', // betting/playing/bust
-  bet: 0
+  bet: 1,
+  cash: 100
 }, action) {
 
   switch(action.type) { 
@@ -18,7 +19,8 @@ function playerReducer(state = {
         ...state,
         hand: [...state.hand, action.drawnCard],
         handTotal: action.newHandTotal,
-        status: 'bust'
+        status: 'bust',
+        cash: state.cash - state.bet
       }
     
     case 'DEAL_CARDS':
@@ -46,6 +48,20 @@ function playerReducer(state = {
     case 'DEALER_DRAW_CARD_BUST':
       return {
         ...state,
+        status: 'waiting',
+        cash: state.cash + state.bet
+      }
+
+    case 'CALCULATE_WINNER':
+      let newCash = state.cash;
+      if (action.winner === 'player') {
+        newCash += state.bet
+      } else if (action.winner === 'dealer') {
+        newCash -= state.bet
+      }
+      return {
+        ...state,
+        cash: newCash,
         status: 'waiting'
       }
     
