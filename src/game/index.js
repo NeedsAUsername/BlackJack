@@ -105,8 +105,10 @@ class Game extends React.Component {
         <h1>Blackjack</h1>
         <h3>{this.props.player.roundMessage}</h3>
         {this.renderActions()}
-        <Dealer dealer={this.props.dealer}/>
-        <Player player={this.props.player} changeBet={this.props.changeBet}/>
+        <div className='board'>
+          <Dealer dealer={this.props.dealer} isSplit={this.props.player.isSplit}/>
+          <Player player={this.props.player} changeBet={this.props.changeBet}/>
+        </div>
       </div>
     )
   }
