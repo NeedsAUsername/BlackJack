@@ -12,6 +12,8 @@ import {stand} from '../actions/stand';
 import {calculateWinner} from '../actions/calculateWinner';
 import {changeBet} from '../actions/changeBet';
 import {double} from '../actions/double';
+import {split} from '../actions/split';
+import {calculateHandTotal} from '../helpers/calculateHandTotal';
 
 class Game extends React.Component { 
   componentDidMount() {
@@ -23,7 +25,7 @@ class Game extends React.Component {
       if (this.props.dealer.handTotal < 17) {
         setTimeout(() => this.props.drawCard(this.props.deckId, this.props.dealer.hand, 'dealer'), 1000)
       } else {
-        this.props.calculateWinner(this.props.player.handTotal, this.props.dealer.handTotal);
+        this.props.calculateWinner(this.props.player, this.props.dealer.handTotal);
       }
     } 
   }
@@ -32,10 +34,15 @@ class Game extends React.Component {
     this.props.dealCards(this.props.deckId)
   }
   hit = () => {
-    this.props.drawCard(this.props.deckId, this.props.player.hand, 'player')
+    let hand = this.props.player.playingSplitHand ? this.props.player.splitHand : this.props.player.hand
+    let showdown = false
+    if (this.props.player.playingSplitHand && this.props.player.handTotal <= 21) {
+      showdown = true
+    }
+    this.props.drawCard(this.props.deckId, hand, 'player', showdown)
   }
   stand = () => {
-    this.props.stand()
+    this.props.stand((this.props.player.isSplit && !this.props.player.playingSplitHand))
   }
   double = () => {
     this.props.double(this.props.deckId, this.props.player.hand)
@@ -60,6 +67,20 @@ class Game extends React.Component {
     if (player.status === 'betting') {
       return <button onClick={this.dealCards}>Deal Cards</button>
     }
+    if (this.props.dealer.status === 'hitting'){
+      return <div>Good Luck...</div>
+    }
+    if (player.status === 'bust' || player.status === 'waiting' || this.props.dealer.status === 'bust') {
+      return <button onClick={this.reset}>Reset</button>;
+    }
+    if (player.playingSplitHand === true) {
+      return (
+        <div>
+          {calculateHandTotal(player.splitHand) < 21 ? <button onClick={this.hit}>Hit</button> : null}
+          <button onClick={this.stand}>Stand</button>
+        </div>
+      )
+    }
     if(player.status === 'playing') {
       if (player.hand.length > 2) {
         return (
@@ -70,29 +91,11 @@ class Game extends React.Component {
       } else {
         return (
         <div>
-          {player.handTotal < 21 ? <button onClick={this.double}>Double</button> : null}
+          {player.handTotal < 21 && !player.isSplit ? <button onClick={this.props.split}>Split</button> : null}
+          {player.handTotal < 21 && !player.isSplit ? <button onClick={this.double}>Double</button> : null}
           {player.handTotal < 21 ? <button onClick={this.hit}>Hit</button> : null}
           <button onClick={this.stand}>Stand</button>
         </div>)
-      }
-    }
-    if (player.status === 'bust' || player.status === 'waiting' || this.props.dealer.status === 'bust') {
-      return <button onClick={this.reset}>Reset</button>;
-    }
-    else {
-      return <div>Good Luck...</div>
-    }
-  }
-
-  renderWinner = () => {
-    if (this.props.dealer.handTotal >= 17 && this.props.dealer.status === 'waiting') {
-      if (this.props.dealer.handTotal === this.props.player.handTotal) {
-        return <h1>Push</h1>
-      }
-      else if (this.props.dealer.handTotal > this.props.player.handTotal) {
-        return <h1>Dealer Wins</h1>
-      } else {
-        return <h1>Player Wins</h1>
       }
     }
   }
@@ -100,7 +103,7 @@ class Game extends React.Component {
     return (
       <div>
         <h1>Blackjack</h1>
-        {this.renderWinner()}
+        <h3>{this.props.player.roundMessage}</h3>
         {this.renderActions()}
         <Dealer dealer={this.props.dealer}/>
         <Player player={this.props.player} changeBet={this.props.changeBet}/>
@@ -118,5 +121,5 @@ const mapStateToProps = (store) => {
 }
 
 export default connect(mapStateToProps, {
-  getDeck, dealCards, drawCard, shuffleDeck, resetHands, stand, calculateWinner, changeBet, double
+  getDeck, dealCards, drawCard, shuffleDeck, resetHands, stand, calculateWinner, changeBet, double, split
 })(Game);

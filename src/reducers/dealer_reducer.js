@@ -25,6 +25,13 @@ function dealerReducer(state = {
         ...state,
         status: 'hitting'
       }
+    
+    // called when players splits hand then busts on second hand after standing on first hand
+    case 'SHOWDOWN':
+      return {
+        ...state,
+        status: 'hitting'
+      }
 
     case 'DEALER_DRAW_CARD':
       return {

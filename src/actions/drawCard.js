@@ -1,6 +1,6 @@
 import { cardMap } from '../helpers/cardMap';
 
-export function drawCard(deckId, hand, person) {
+export function drawCard(deckId, hand, person, splitHandShowdown) {
   return (dispatch) => {
     dispatch({type: 'DRAWING_CARD'})
     const url = `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=1`;
@@ -28,6 +28,11 @@ export function drawCard(deckId, hand, person) {
           drawnCard,
           newHandTotal
         })
+        if (splitHandShowdown) {
+          dispatch({
+            type: 'SHOWDOWN'
+          })
+        }
       } else {
         dispatch({
           type: person === 'player' ? 'DRAW_CARD' : 'DEALER_DRAW_CARD',

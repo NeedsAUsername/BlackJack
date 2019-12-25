@@ -1,11 +1,15 @@
 import React from 'react'; 
 import './style.css';
 import Card from '../card';
+import {calculateHandTotal} from '../helpers/calculateHandTotal';
 
 class Player extends React.Component { 
 
   renderHand = () => {
     return this.props.player.hand.map((card, index) => <Card key={index} card={card}/>)
+  }
+  renderSplitHand = () => {
+    return this.props.player.splitHand.map((card, index) => <Card key={index} card={card}/>)
   }
   changeBet = (e) => {
     e.preventDefault()
@@ -19,11 +23,14 @@ class Player extends React.Component {
   )
   render () {
     const player = this.props.player
+    const splitHandTotal = calculateHandTotal(player.splitHand)
     return (
       <div>
-        <h1>${player.cash} Player {player.handTotal > 0 ? player.handTotal : null} {player.status === 'bust' ? 'BUST!' : null}</h1>
+        <h1>${player.cash} Player {player.handTotal > 0 ? player.handTotal : null} {player.handTotal > 21 ? 'BUST' : null}</h1>
         {player.status === 'betting' ? this.renderBetForm() : null }
         <div>{this.renderHand()}</div>
+        <h1>{player.playingSplitHand ? '->' : null} {splitHandTotal > 0 ? splitHandTotal : null} {splitHandTotal > 21 ? 'BUST': null}</h1>
+        <div>{this.renderSplitHand()}</div>
       </div>
     )
   }
