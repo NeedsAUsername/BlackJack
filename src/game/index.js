@@ -14,6 +14,7 @@ import {changeBet} from '../actions/changeBet';
 import {double} from '../actions/double';
 import {split} from '../actions/split';
 import {calculateHandTotal} from '../helpers/calculateHandTotal';
+import cardLogo from '../images/card_logo.png';
 
 class Game extends React.Component { 
   componentDidMount() {
@@ -101,10 +102,10 @@ class Game extends React.Component {
   }
   render () { 
     return (
-      <div>
+      <div className='game'>
         <h3>{this.props.player.roundMessage}</h3>
         <div className='actions'>
-          <h1>Blackjack</h1>
+          <h1><img className='card-logo' src={cardLogo}/>Blackjack</h1>
           {this.renderActions()}
         </div>
         <div className='board'>

@@ -1,3 +1,12 @@
+.game {
+  width: 100vw;
+  height: 100vw;
+  margin-top: -20px;
+  padding: 0px;
+  background-color: green;
+  /* background-repeat: no-repeat;
+  background-size: contain; */
+}
 .actions {
   position: absolute;
   left: 0px;
@@ -5,6 +14,11 @@
   text-align: center;
   display: flex;
   flex-direction: column;
+}
+.card-logo {
+  display: inline-block;
+  width: 50px;
+  height: auto;
 }
 
 button,
@@ -19,9 +33,9 @@ button {
   width: 300px;
   text-align: center;
   background: none;
-  border: 3px solid red;
+  border: 3px solid white;
   border-radius: 5px;
-  color:red;
+  color: white;
   display: block;
   font-size: 1.6em;
   font-weight: bold;
