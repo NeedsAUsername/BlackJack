@@ -29,9 +29,9 @@ export function drawCard(deckId, hand, person, splitHandShowdown) {
           newHandTotal
         })
         if (splitHandShowdown) {
-          dispatch({
+          setTimeout(() => dispatch({
             type: 'SHOWDOWN'
-          })
+          }), 500)
         }
       } else {
         dispatch({
