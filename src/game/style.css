@@ -1,0 +1,45 @@
+.actions {
+  position: absolute;
+  left: 0px;
+  width: 300px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+button,
+button::after {
+  -webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+  -o-transition: all 0.3s;
+	transition: all 0.3s;
+}
+
+button {
+  width: 300px;
+  text-align: center;
+  background: none;
+  border: 3px solid red;
+  border-radius: 5px;
+  color:red;
+  display: block;
+  font-size: 1.6em;
+  font-weight: bold;
+  margin: 1em auto;
+  padding: 1em 3em;
+  position: relative;
+  text-transform: uppercase;
+}
+
+button::before,
+button::after {
+  background: white;
+  content: '';
+  position: absolute;
+  z-index: -1;
+}
+
+button:hover {
+  border: 3px solid #2ecc71;
+  color: #2ecc71;
+}

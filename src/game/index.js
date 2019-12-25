@@ -65,7 +65,7 @@ class Game extends React.Component {
   renderActions = () => {
     const player = this.props.player;
     if (player.status === 'betting') {
-      return <button onClick={this.dealCards}>Deal Cards</button>
+      return <button onClick={this.dealCards}>Deal</button>
     }
     if (this.props.dealer.status === 'hitting'){
       return <div>Good Luck...</div>
@@ -75,38 +75,40 @@ class Game extends React.Component {
     }
     if (player.playingSplitHand === true) {
       return (
-        <div>
+        <React.Fragment>
           {calculateHandTotal(player.splitHand) < 21 ? <button onClick={this.hit}>Hit</button> : null}
           <button onClick={this.stand}>Stand</button>
-        </div>
+        </React.Fragment>
       )
     }
     if(player.status === 'playing') {
       if (player.hand.length > 2) {
         return (
-        <div>
+        <React.Fragment>
           {player.handTotal < 21 && player.doubled === false ? <button onClick={this.hit}>Hit</button> : null}
           <button onClick={this.stand}>Stand</button>
-        </div>)
+        </React.Fragment>)
       } else {
         return (
-        <div>
+        <React.Fragment>
           {player.handTotal < 21 && !player.isSplit ? <button onClick={this.props.split}>Split</button> : null}
           {player.handTotal < 21 && !player.isSplit ? <button onClick={this.double}>Double</button> : null}
           {player.handTotal < 21 ? <button onClick={this.hit}>Hit</button> : null}
           <button onClick={this.stand}>Stand</button>
-        </div>)
+        </React.Fragment>)
       }
     }
   }
   render () { 
     return (
       <div>
-        <h1>Blackjack</h1>
         <h3>{this.props.player.roundMessage}</h3>
-        {this.renderActions()}
+        <div className='actions'>
+          <h1>Blackjack</h1>
+          {this.renderActions()}
+        </div>
         <div className='board'>
-          <Dealer dealer={this.props.dealer} isSplit={this.props.player.isSplit}/>
+          {this.props.player.status === 'betting' ? null : <Dealer dealer={this.props.dealer} isSplit={this.props.player.isSplit}/>}
           <Player player={this.props.player} changeBet={this.props.changeBet}/>
         </div>
       </div>

@@ -29,7 +29,7 @@ class Player extends React.Component {
         <h2>${player.cash} Player {player.handTotal > 0 ? player.handTotal : null} {player.handTotal > 21 ? 'BUST' : null}</h2>
         {player.status === 'betting' ? this.renderBetForm() : null }
         <div>{this.renderHand()}</div>
-        <h2>{player.playingSplitHand ? '->' : null} {splitHandTotal > 0 ? splitHandTotal : null} {splitHandTotal > 21 ? 'BUST': null}</h2>
+        <h2>{player.playingSplitHand ? '👉' : null} {splitHandTotal > 0 ? splitHandTotal : null} {splitHandTotal > 21 ? 'BUST': null}</h2>
         <div>{this.renderSplitHand()}</div>
       </div>
     )
