@@ -24,7 +24,15 @@
 .bet-form {
   margin-bottom: 20px;
 }
-
+.rules {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.corner {
+  position:absolute;
+  right: 0;
+}
 button,
 button::after {
   -webkit-transition: all 0.3s;
@@ -45,7 +53,7 @@ button {
   font-weight: bold;
   margin: 1em auto;
   padding: .5em 3em;
-  position: relative;
+  /* position: relative; */
   text-transform: uppercase;
   margin: 10px;
 }

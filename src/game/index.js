@@ -31,6 +31,19 @@ class Game extends React.Component {
     } 
   }
 
+  state = {
+    showRules: true
+  }
+
+  toggleShowRules = (e) => {
+    e.preventDefault()
+    this.setState((prevState, props) => {
+      return {
+        showRules: !prevState.showRules
+      }
+    })
+  }
+
   dealCards = () => {
     this.props.dealCards(this.props.deckId)
   }
@@ -111,7 +124,26 @@ class Game extends React.Component {
         <input type='text' name='bet' onChange={this.changeBet} value={this.props.player.bet} />
       </form>
   )
-  
+  renderRules = () => {
+    if (this.state.showRules) {
+      return (    
+        <div className='rules'>
+          <button onClick={this.toggleShowRules}>Toggle Rules</button>
+          <p>Welcome to my version of BlackJack! Here are some house rules:</p>
+          <p>Hitting 21 is not a gauranteed win against dealer and does not pay 3 to 2</p>
+          <p>Player may double on any normal hand</p>
+          <p>Player may split on any hand</p>
+          <p>Player may only split once per round</p>
+          <p>Player may not double on split hands</p>
+        </div>)
+    } else {
+      return (
+        <div className='corner'>
+          <button onClick={this.toggleShowRules}>Toggle Rules</button>
+        </div>
+      )
+    }
+  }
   render () { 
     return (
       <div className='game-container'>
@@ -123,7 +155,7 @@ class Game extends React.Component {
             {this.renderActions()}
           </div>
           <div className='board'>
-            {this.props.player.status === 'betting' ? null : 
+            {this.props.player.status === 'betting' ? this.renderRules() : 
             <React.Fragment>
               <Dealer dealer={this.props.dealer} isSplit={this.props.player.isSplit}/>
               <Player player={this.props.player} changeBet={this.props.changeBet}/>
