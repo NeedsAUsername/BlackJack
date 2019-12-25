@@ -1,8 +1,9 @@
-.game {
+.game-container {
   width: 100vw;
   height: 100vw;
   margin-top: -20px;
-  padding: 0px;
+  padding-top: 20px;
+  padding-left: 50px;
   background-color: green;
   /* background-repeat: no-repeat;
   background-size: contain; */
@@ -19,6 +20,9 @@
   display: inline-block;
   width: 50px;
   height: auto;
+}
+.bet-form {
+  margin-bottom: 20px;
 }
 
 button,
@@ -40,18 +44,19 @@ button {
   font-size: 1.6em;
   font-weight: bold;
   margin: 1em auto;
-  padding: 1em 3em;
+  padding: .5em 3em;
   position: relative;
   text-transform: uppercase;
+  margin: 10px;
 }
 
-button::before,
+/* button::before,
 button::after {
   background: white;
   content: '';
   position: absolute;
   z-index: -1;
-}
+} */
 
 button:hover {
   border: 3px solid #2ecc71;

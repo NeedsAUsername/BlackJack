@@ -1,5 +1,6 @@
 import {cardMap} from '../helpers/cardMap';
 import { calculateHandTotal } from '../helpers/calculateHandTotal';
+import {emohiGenerator, emojiGenerator} from '../helpers/emojis';
 
 function playerReducer(state = {
   hand: [],
@@ -111,23 +112,23 @@ function playerReducer(state = {
 
     case 'CALCULATE_WINNER':
       let newCash = state.cash
-      let roundMessage = 'Push'
+      let roundMessage = 'Push' + emojiGenerator('neutral')
       // score used when player splits hands
       if (action.score) {
         newCash += (state.bet * action.score)
         if (action.winner === 'player') {
-          roundMessage = 'Player Wins'
+          roundMessage = 'Player Wins' + emojiGenerator('good')
         } else if (action.winner === 'dealer') {
-          roundMessage = 'Dealer Wins'
+          roundMessage = 'Dealer Wins' + emojiGenerator('bad')
         }
       }
       // normal games without split hands
       else if (action.winner === 'player') {
         newCash += state.bet
-        roundMessage = 'Player Wins'
+        roundMessage = 'Player Wins' + emojiGenerator('good')
       } else if (action.winner === 'dealer') {
         newCash -= state.bet
-        roundMessage = 'Dealer Wins'
+        roundMessage = 'Dealer Wins' + emojiGenerator('bad')
       } return {
         ...state,
         cash: newCash,

@@ -69,7 +69,7 @@ class Game extends React.Component {
       return <button onClick={this.dealCards}>Deal</button>
     }
     if (this.props.dealer.status === 'hitting'){
-      return <div>Good Luck...</div>
+      return <div>Good Luck🤞</div>
     }
     if (player.status === 'bust' || player.status === 'waiting' || this.props.dealer.status === 'bust') {
       return <button onClick={this.reset}>Reset</button>;
@@ -100,18 +100,35 @@ class Game extends React.Component {
       }
     }
   }
+
+  changeBet = (e) => {
+    e.preventDefault()
+    this.props.changeBet(e.target.value)
+  }
+  renderBetForm = () => (
+      <form className='bet-form'>
+        <h2><label htmlFor='bet'>Bet:</label></h2>
+        <input type='text' name='bet' onChange={this.changeBet} value={this.props.player.bet} />
+      </form>
+  )
+  
   render () { 
     return (
-      <div className='game'>
-        <h3>{this.props.player.roundMessage}</h3>
-        <div className='actions'>
-          <h1><img className='card-logo' src={cardLogo}/>Blackjack</h1>
-          {this.renderActions()}
-        </div>
-        <div className='board'>
-          {this.props.player.status === 'betting' ? null : <Dealer dealer={this.props.dealer} isSplit={this.props.player.isSplit}/>}
-          <Player player={this.props.player} changeBet={this.props.changeBet}/>
-        </div>
+      <div className='game-container'>
+          <h3>{this.props.player.roundMessage}</h3>
+          <div className='actions'>
+            <h1><img className='card-logo' src={cardLogo}/>Blackjack</h1>
+            <h2>Score: {this.props.player.cash}</h2> 
+            {this.props.player.status === 'betting' ? this.renderBetForm() : <h2>Bet: ${this.props.player.bet}</h2>}
+            {this.renderActions()}
+          </div>
+          <div className='board'>
+            {this.props.player.status === 'betting' ? null : 
+            <React.Fragment>
+              <Dealer dealer={this.props.dealer} isSplit={this.props.player.isSplit}/>
+              <Player player={this.props.player} changeBet={this.props.changeBet}/>
+            </React.Fragment>}
+          </div>
       </div>
     )
   }
