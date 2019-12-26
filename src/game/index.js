@@ -139,12 +139,15 @@ class Game extends React.Component {
       return (    
         <div className='rules'>
           <button onClick={this.toggleShowRules}>Toggle Rules</button>
-          <p>Welcome to my version of BlackJack! Here are some house rules:</p>
-          <p>Hitting 21 is not a gauranteed win against dealer and does not pay 3 to 2</p>
-          <p>Player may double on any normal hand</p>
-          <p>Player may split on any hand</p>
+          <p>Welcome to my version of Blackjack!</p>
+          <p>If you are not familiar with the game, you can find general rules <a href='http://www.hitorstand.net/strategy.php' target="_blank">here</a></p>
+          <p>Here are my house rules:</p>
+          <p>Natural blackjacks are not automatic wins and pay the normal bet amount</p>
+          <p>Player may double on any starting hand</p>
+          <p>Player may split on starting hands with the same value</p>
           <p>Player may only split once per round</p>
-          <p>Player may not double on split hands</p>
+          <p>Player may not double once they split hands</p>
+          <p>Dealer stands on a soft seventeen(hand worth 17 or 7 with an Ace)</p>
         </div>)
     } else {
       return (
