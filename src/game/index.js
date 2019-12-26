@@ -13,6 +13,7 @@ import {calculateWinner} from '../actions/calculateWinner';
 import {changeBet} from '../actions/changeBet';
 import {double} from '../actions/double';
 import {split} from '../actions/split';
+import {cardMap} from '../helpers/cardMap';
 import {calculateHandTotal} from '../helpers/calculateHandTotal';
 import cardLogo from '../images/card_logo.png';
 
@@ -76,6 +77,15 @@ class Game extends React.Component {
     }
   }
 
+  isSplitableHand = () => {
+    if (this.props.player.isSplit) {
+      return false
+    } 
+    const conditionOne = this.props.player.handTotal < 21
+    const conditionTwo = cardMap[this.props.player.hand[0].value] === cardMap[this.props.player.hand[1].value]
+    return conditionOne && conditionTwo
+  }
+
   renderActions = () => {
     const player = this.props.player;
     if (player.status === 'betting') {
@@ -105,7 +115,7 @@ class Game extends React.Component {
       } else {
         return (
         <React.Fragment>
-          {player.handTotal < 21 && !player.isSplit ? <button onClick={this.props.split}>Split</button> : null}
+          {this.isSplitableHand() ? <button onClick={this.props.split}>Split</button> : null}
           {player.handTotal < 21 && !player.isSplit ? <button onClick={this.double}>Double</button> : null}
           {player.handTotal < 21 ? <button onClick={this.hit}>Hit</button> : null}
           <button onClick={this.stand}>Stand</button>
