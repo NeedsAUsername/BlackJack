@@ -128,8 +128,12 @@ class Game extends React.Component {
     e.preventDefault()
     this.props.changeBet(e.target.value)
   }
+  submitBetForm = (e) => {
+    e.preventDefault()
+    this.dealCards()
+  }
   renderBetForm = () => (
-      <form className='bet-form'>
+      <form className='bet-form' onSubmit={this.submitBetForm}>
         <h2><label htmlFor='bet'>Bet:</label></h2>
         <input type='text' name='bet' onChange={this.changeBet} value={this.props.player.bet} />
       </form>

@@ -99,7 +99,13 @@ function playerReducer(state = {
       let bet = state.bet
       if (state.isSplit) {
         if (state.handTotal <= 21 && calculateHandTotal(state.splitHand) <= 21) {
-          bet *= 2
+          return {
+            ...state,
+            status: 'waiting',
+            cash: state.cash + (bet * 2),
+            bet: state.doubled === true ? bet/2 : bet,
+            doubled: false
+          }
         }
       }
       return {
