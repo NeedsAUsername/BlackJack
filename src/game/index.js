@@ -20,6 +20,7 @@ import cardLogo from '../images/card_logo.png';
 class Game extends React.Component { 
   componentDidMount() {
     this.props.getDeck();
+    this.handsPlayed = 0;
   }
 
   componentDidUpdate() {
@@ -65,6 +66,8 @@ class Game extends React.Component {
   reset = () => {
     this.props.shuffleDeck(this.props.deckId)
     this.props.resetHands();
+    this.handsPlayed += 0;
+    console.log('hands played: ' + this.handsPlayed);
   }
   
   dealerTurns = () => {
