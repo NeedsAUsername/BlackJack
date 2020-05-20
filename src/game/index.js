@@ -66,7 +66,7 @@ class Game extends React.Component {
   reset = () => {
     this.props.shuffleDeck(this.props.deckId)
     this.props.resetHands();
-    this.handsPlayed += 0;
+    this.handsPlayed += 1;
     console.log('hands played: ' + this.handsPlayed);
   }
   
